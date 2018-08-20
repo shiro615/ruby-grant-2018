@@ -47,5 +47,5 @@ GObject Introspectionを使ったバインディング開発には以下の課�
 
 # プロジェクトの成果物
 
-- 手書きと同じ速さで自動生成のバインディングを実装できるようにする
-- 手書きとGObject Introspectionのパフォーマンスを比較した計測結果を用意する
+- 手書きのバインディングと同等の速度でバインド対象の関数を呼び出せるgobject-introspection gem（本体にマージする）
+- 手書きのバインディングとgobject-introspection gemを使ったバインディングのベンチマーク結果
