@@ -29,12 +29,31 @@ gobject-introspection gemのメリットは次の3点です。
 
 ### 現在の課題
 
-GObject Introspectionを使ったバインディング開発には以下の課題があります。
+以下のようなパフォーマンス面の課題があります
 
-- 手書きより遅い
-- オーバーヘッドがある
-  - 動的な引数の変換
-  - libffiを使った関数呼び出し
+- 動的な引数の変換
+  - 手書きのバインディングでは1番目の引数は文字列として変換するというように書けるが、gobject-introspection gemは実行時に1番目の引数の型情報を取得してその情報を元に変換する。そのため、実行時に適切な変換方法を確定するためのコストがかかる。
+- libffiを使った関数呼び出し
+  - 手書きのバインディングに比べてlibffiを使ったバインディングは約3倍のオーバヘッドがある。
+
+  - 手書きのバインディング(Extension)
+  ```
+                  user     system      total        real
+  Extension   0.550000   0.000000   0.550000 (  0.556729)
+  Method      0.570000   0.000000   0.570000 (  0.577752)
+  Direct      0.360000   0.010000   0.370000 (  0.368701)
+  ```
+  https://github.com/kou/rabbit-slide-kou-rubykaigi-2016/tree/master/c-api/performance
+
+  - libffiを使ったバインディング(ffi, Fiddle)
+  ```
+               user     system      total        real
+  ffi      1.480000   0.010000   1.490000 (  1.487364)
+  Fiddle   1.470000   0.000000   1.470000 (  1.478364)
+  Method   0.540000   0.000000   0.540000 (  0.539982)
+  Direct   0.390000   0.000000   0.390000 (  0.397280)
+  ```
+  https://github.com/kou/rabbit-slide-kou-rubykaigi-2016/tree/master/ffi/performance
 
 ### 改善案
 
