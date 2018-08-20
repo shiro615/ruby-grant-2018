@@ -4,7 +4,7 @@
 
 # プロジェクト名
 
-- Ruby/GObject IntrospectionのLLVM対応
+- gobject-introspection gemのLLVM対応
 
 # プロジェクトの詳細
 
